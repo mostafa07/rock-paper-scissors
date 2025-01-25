@@ -1,6 +1,6 @@
 package org.example.enums
 
-enum class Result {
+enum class GameResult {
 
     WIN,    // Player 1 wins
     TIE,
