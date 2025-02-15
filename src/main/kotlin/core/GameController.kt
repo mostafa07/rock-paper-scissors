@@ -8,20 +8,19 @@ import org.example.model.GameRound
 class GameController(private val choiceGenerator: ChoiceGenerator) {
 
     fun playGame(): GameResult {
-        val gameRound = GameRound(choiceGenerator.generateChoice(), choiceGenerator.generateChoice())
-        return gameRound.getResult()
+        return playRound(choiceGenerator.generateChoice(), choiceGenerator.generateChoice())
     }
 
     fun playCustomGame(opponentChoice: Choice): GameResult {
-        val gameRound = GameRound(choiceGenerator.generateChoice(), opponentChoice)
-        return gameRound.getResult()
+        return playRound(choiceGenerator.generateChoice(), opponentChoice)
     }
 
     fun playCustomGames(num: Int, opponentChoice: Choice): List<GameResult> {
-        val gameResults = mutableListOf<GameResult>()
-        repeat(num) {
-            gameResults.add(playCustomGame(opponentChoice))
-        }
-        return gameResults
+        return List(num) { playRound(choiceGenerator.generateChoice(), opponentChoice) }
+    }
+
+    private fun playRound(player1Choice: Choice, player2Choice: Choice): GameResult {
+        val gameRound = GameRound(player1Choice, player2Choice)
+        return gameRound.getResult()
     }
 }
