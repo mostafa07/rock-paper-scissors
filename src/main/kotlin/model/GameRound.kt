@@ -7,11 +7,8 @@ class GameRound(private val player1Choice: Choice, private val player2Choice: Ch
 
     fun getResult(): GameResult {
         return when {
-            (player1Choice == player2Choice) -> GameResult.TIE
-            (player1Choice == Choice.PAPER && player2Choice == Choice.ROCK
-                    || player1Choice == Choice.ROCK && player2Choice == Choice.SCISSORS
-                    || player1Choice == Choice.SCISSORS && player2Choice == Choice.PAPER) -> GameResult.WIN
-
+            player1Choice == player2Choice -> GameResult.TIE
+            player1Choice.beats(player2Choice) -> GameResult.WIN
             else -> GameResult.LOSE
         }
     }
